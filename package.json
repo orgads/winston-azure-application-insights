@@ -48,7 +48,7 @@
     "winston": "^3.1.0"
   },
   "peerDependencies": {
-    "applicationinsights": "~1.0.6",
+    "applicationinsights": ">=1.0.0"
     "winston": "^3.1.0"
   },
   "bugs": {
