@@ -1,11 +1,13 @@
-'use strict';
+/* eslint-disable max-classes-per-file */
 
+'use strict';
 
 const { assert } = require('chai');
 const sinon = require('sinon');
 const { createLogger, format, config } = require('winston');
 const appInsights = require('applicationinsights');
 const transport = require('../lib/winston-azure-application-insights');
+const JsonConfig = require('applicationinsights/out/Library/JsonConfig.js');
 
 afterEach('teardown appInsights', () => {
     appInsights.dispose();
@@ -66,6 +68,8 @@ describe('winston-azure-application-insights', () => {
                 let aiLogger;
 
                 process.env.APPINSIGHTS_INSTRUMENTATIONKEY = 'FAKEKEY';
+                // eslint-disable-next-line no-underscore-dangle
+                delete JsonConfig.JsonConfig._instance;
 
                 assert.doesNotThrow(() => {
                     aiLogger = new transport.AzureApplicationInsightsLogger();
@@ -151,7 +155,6 @@ describe('winston-azure-application-insights', () => {
 
                 const customObj = new CustomObject('value');
                 const date = new Date(2021, 1, 1);
-
 
                 clientMock.expects('trackTrace').once().withArgs({ message: customObj.toString(), severity: 0, properties: {} });
                 clientMock.expects('trackTrace').once().withArgs({ message: date.toString(), severity: 0, properties: {} });
