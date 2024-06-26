@@ -91,6 +91,24 @@ describe('winston-azure-application-insights', () => {
                 assert.equal(aiLogger.level, 'warn');
             });
 
+            it('should set undefined logging level', () => {
+                const aiLogger = new transport.AzureApplicationInsightsLogger({
+                    key: 'FAKEKEY',
+                    level: undefined,
+                });
+
+                assert.isUndefined(aiLogger.level);
+            });
+
+            it('should set null logging level', () => {
+                const aiLogger = new transport.AzureApplicationInsightsLogger({
+                    key: 'FAKEKEY',
+                    level: null,
+                });
+
+                assert.isNull(aiLogger.level);
+            });
+
             it('should declare a Winston logger', () => {
                 const theTransport = new transport.AzureApplicationInsightsLogger({
                     key: 'FAKEKEY',
